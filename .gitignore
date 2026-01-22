@@ -1,0 +1,5 @@
+day_2/out
+*.exe
+*.out
+*.o
+*.so
