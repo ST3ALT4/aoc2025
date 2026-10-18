@@ -1,32 +1,40 @@
 package main
 
 import (
-	"fmt";
-	"os";
-	"strconv";
+	"bufio"
+	"fmt"
+	"os"
 )
 
-func main() {
-	file, err := os.ReadFile("input.txt");
-	if err != nil {
-		fmt.Println("Error in reading file", err);
-	}
+func maxJolt(bat []int) (int, int) {
 
-	strData := string(file);
-	vec2d := make([][]int, 0);
-	l := 0;
+	firstMax := -1
+	secondMax := -1
 
-	for i := 0; i < len(strData); i++ {
-		if strData[i] == '\n' {
-			intVec, err := strconv.ParseInt(strData[l:i], 10, 64);
-			if err != nil {
-				fmt.Println("Unable to Parse String");
-			}
-
-			vec2d = append(vec2d, []int{[]int{int(intVec)}...});
-			l = i+1;
+	for _, value := range bat {
+		if value >= firstMax {
+			firstMax = value
+			secondMax = value
 		}
-		
 	}
-	fmt.Println(vec2d);
+
+	return secondMax, firstMax
+}
+
+func main() {
+	file, err := os.Open("input.txt")
+	if err != nil {
+		fmt.Println("Error in reading file", err)
+	}
+
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+
+		line := scanner.Text()
+		fmt.Println(line)
+	}
+
 }
